@@ -53,7 +53,7 @@ public class Review {
     }
 
     public String getTitle() {
-        return title;
+        return null;
     }
 
     public String getComment() {

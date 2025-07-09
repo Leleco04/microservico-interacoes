@@ -40,4 +40,7 @@ public class Checklist {
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
+
+    public void setBookId(Long newBookId) {
+    }
 }
