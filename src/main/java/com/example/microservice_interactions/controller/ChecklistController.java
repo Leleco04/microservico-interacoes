@@ -24,4 +24,17 @@ public class ChecklistController {
          return ResponseEntity.ok("Adicionado com sucesso");
     }
 
+    @PutMapping(value = "/editarChecklist")
+    public ResponseEntity<String> editarChecklist(@RequestParam Long userId,@RequestParam Long oldBookId,@RequestParam Long newBookId){
+        checklistService.editChecklist(userId, oldBookId, newBookId);
+        return ResponseEntity.ok("Editado com sucesso");
+    }
+
+
+    @DeleteMapping(value = "/removerChecklist/{bookId}")
+    public ResponseEntity<?> remove(@PathVariable("userId")Long userId, @PathVariable("bookId")Long bookId){
+        checklistService.removeChecklist(userId,bookId);
+        return ResponseEntity.noContent().build();
+    }
+
 }
