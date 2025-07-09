@@ -35,6 +35,7 @@ public class Review {
         this.createdAt = createdAt;
     }
 
+
     public Long getId() {
         return id;
     }
@@ -61,5 +62,14 @@ public class Review {
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
+    }
+
+    public void setRating(int newRating) {
+    }
+
+    public void setTitle(String newTitle) {
+    }
+
+    public void setComment(String newComment) {
     }
 }

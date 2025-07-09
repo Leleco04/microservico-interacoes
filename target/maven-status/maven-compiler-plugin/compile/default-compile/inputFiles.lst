@@ -1,0 +1,16 @@
+C:\Users\Aluno\Desktop\interacoes\microservico-interacoes\src\main\java\com\example\microservice_interactions\controller\InteractionController.java
+C:\Users\Aluno\Desktop\interacoes\microservico-interacoes\src\main\java\com\example\microservice_interactions\dto\ChecklistRequestDTO.java
+C:\Users\Aluno\Desktop\interacoes\microservico-interacoes\src\main\java\com\example\microservice_interactions\dto\LikeRequestDTO.java
+C:\Users\Aluno\Desktop\interacoes\microservico-interacoes\src\main\java\com\example\microservice_interactions\dto\ReviewRequestDTO.java
+C:\Users\Aluno\Desktop\interacoes\microservico-interacoes\src\main\java\com\example\microservice_interactions\entity\Checklist.java
+C:\Users\Aluno\Desktop\interacoes\microservico-interacoes\src\main\java\com\example\microservice_interactions\entity\Like.java
+C:\Users\Aluno\Desktop\interacoes\microservico-interacoes\src\main\java\com\example\microservice_interactions\entity\Review.java
+C:\Users\Aluno\Desktop\interacoes\microservico-interacoes\src\main\java\com\example\microservice_interactions\enums\Status.java
+C:\Users\Aluno\Desktop\interacoes\microservico-interacoes\src\main\java\com\example\microservice_interactions\MicroserviceInteractionsApplication.java
+C:\Users\Aluno\Desktop\interacoes\microservico-interacoes\src\main\java\com\example\microservice_interactions\repository\ChecklistRepository.java
+C:\Users\Aluno\Desktop\interacoes\microservico-interacoes\src\main\java\com\example\microservice_interactions\repository\LikeRepository.java
+C:\Users\Aluno\Desktop\interacoes\microservico-interacoes\src\main\java\com\example\microservice_interactions\repository\ReviewRepository.java
+C:\Users\Aluno\Desktop\interacoes\microservico-interacoes\src\main\java\com\example\microservice_interactions\security\SecurityConfig.java
+C:\Users\Aluno\Desktop\interacoes\microservico-interacoes\src\main\java\com\example\microservice_interactions\security\SecurityFilter.java
+C:\Users\Aluno\Desktop\interacoes\microservico-interacoes\src\main\java\com\example\microservice_interactions\service\InteractionService.java
+C:\Users\Aluno\Desktop\interacoes\microservico-interacoes\src\main\java\com\example\microservice_interactions\service\TokenService.java
