@@ -1,0 +1,35 @@
+package com.example.microservice_interactions.service;
+
+import com.example.microservice_interactions.entity.Like;
+import com.example.microservice_interactions.repository.LikeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Optional;
+
+public class LikeService {
+
+    @Autowired
+    private LikeRepository likeRepository;
+
+    public void addLike(Long userId, Long bookId) {
+        if(!likeRepository.existsByUserIdAndBookId(userId, bookId)) {
+            Like like = new Like(userId, bookId);
+            likeRepository.save(like);
+        }
+    }
+
+    public void editLike(Long userId, Long bookId, String newReactionType) {
+        Optional<Like> likeOpt = likeRepository.findByUserIdAndBookId(userId, bookId);
+        if (likeOpt.isPresent()) {
+            Like like = likeOpt.get();
+            like.setReactionType(newReactionType);
+            likeRepository.save(like);
+        }
+    }
+
+    public void removeLike(Long userId, Long bookId) {
+        likeRepository.findByUserIdAndBookId(userId, bookId)
+                .ifPresent(likeRepository::delete);
+    }
+
+}

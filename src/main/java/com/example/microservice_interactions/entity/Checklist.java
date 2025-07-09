@@ -21,8 +21,7 @@ public class Checklist {
     public Checklist() {}
 
     public Checklist(Long userId, Long bookId) {
-        this.userId = userId;
-        this.bookId = bookId;
+
     }
 
     public Long getId() {
