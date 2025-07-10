@@ -10,7 +10,7 @@ public class Review {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY )
-    private Long id;
+    private Long reviewId;
 
     private Long userId;
 
@@ -37,7 +37,7 @@ public class Review {
 
 
     public Long getId() {
-        return id;
+        return reviewId;
     }
 
     public Long getUserId() {

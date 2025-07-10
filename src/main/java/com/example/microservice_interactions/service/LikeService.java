@@ -18,15 +18,6 @@ public class LikeService {
         }
     }
 
-    public void editLike(Long userId, Long bookId, String newReactionType) {
-        Optional<Like> likeOpt = likeRepository.findByUserIdAndBookId(userId, bookId);
-        if (likeOpt.isPresent()) {
-            Like like = likeOpt.get();
-            like.setReactionType(newReactionType);
-            likeRepository.save(like);
-        }
-    }
-
     public void removeLike(Long userId, Long bookId) {
         likeRepository.findByUserIdAndBookId(userId, bookId)
                 .ifPresent(likeRepository::delete);

@@ -1,7 +1,5 @@
 package com.example.microservice_interactions.controller;
 
-import com.example.microservice_interactions.entity.Checklist;
-import com.example.microservice_interactions.entity.Like;
 import com.example.microservice_interactions.repository.ChecklistRepository;
 import com.example.microservice_interactions.service.ChecklistService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +30,7 @@ public class ChecklistController {
 
 
     @DeleteMapping(value = "/removerChecklist/{bookId}")
-    public ResponseEntity<?> remove(@PathVariable("userId")Long userId, @PathVariable("bookId")Long bookId){
+    public ResponseEntity<?> removerChecklist (@PathVariable("userId")Long userId, @PathVariable("bookId")Long bookId){
         checklistService.removeChecklist(userId,bookId);
         return ResponseEntity.noContent().build();
     }

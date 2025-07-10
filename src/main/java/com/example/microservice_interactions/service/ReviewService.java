@@ -30,7 +30,7 @@ public class ReviewService {
         }
     }
 
-    public void removeReview(Long userId, Long bookId) {
-        reviewRepository.deleteByUserIdAndBookId(userId, bookId);
+    public void removeReview(Long userId, Long bookId, Long reviewId) {
+        reviewRepository.deleteByUserIdAndBookId(userId, bookId, reviewId);
     }
 }
