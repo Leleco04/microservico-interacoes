@@ -3,13 +3,16 @@ package com.example.microservice_interactions.service;
 import com.example.microservice_interactions.entity.Checklist;
 import com.example.microservice_interactions.repository.ChecklistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class ChecklistService {
 
     @Autowired
     private ChecklistRepository checklistRepository;
+
 
     public void addChecklist(Long userId,Long bookId){
         if(!checklistRepository.existsByUserIdAndBookId(userId, bookId)) {

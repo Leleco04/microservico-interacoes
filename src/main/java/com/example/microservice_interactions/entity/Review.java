@@ -36,7 +36,7 @@ public class Review {
     }
 
 
-    public Long getId() {
+    public Long getReviewId() {
         return reviewId;
     }
 
@@ -53,7 +53,7 @@ public class Review {
     }
 
     public String getTitle() {
-        return null;
+        return title;
     }
 
     public String getComment() {
@@ -65,11 +65,14 @@ public class Review {
     }
 
     public void setRating(int newRating) {
+        this.rating = newRating;
     }
 
     public void setTitle(String newTitle) {
+        this.title = newTitle;
     }
 
     public void setComment(String newComment) {
+        this.comment = newComment;
     }
 }

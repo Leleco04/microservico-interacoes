@@ -1,39 +1,40 @@
 package com.example.microservice_interactions.controller;
 
+import com.example.microservice_interactions.dto.EditReviewDTO;
+import com.example.microservice_interactions.dto.ReviewRequestDTO;
+import com.example.microservice_interactions.repository.ReviewRepository;
 import com.example.microservice_interactions.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+@RestController
+@RequestMapping("/reviews")
 public class ReviewController {
 
     @Autowired
     private ReviewService reviewService;
 
     @Autowired
-    private ReviewController reviewController;
+    private ReviewRepository reviewRepository;
 
     @PostMapping(value = "/adicionarReview")
-    public ResponseEntity<String> adicionarReview(@RequestParam Long userId,@RequestParam Long bookId,@RequestParam int rating,
-                                                  @RequestParam String title,@RequestParam String comment){
-        reviewService.addReview(userId, bookId, rating, title, comment);
+    public ResponseEntity<String> adicionarReview(@RequestBody ReviewRequestDTO dto){
+        reviewService.addReview(dto.userId(), dto.bookId(), dto.rating(), dto.title(), dto.comment());
         return ResponseEntity.ok("Review adicionada");
     }
 
     @PutMapping(value = "/editarReview")
-    public ResponseEntity<String> editarReview(@RequestParam Long reviewId,@RequestParam int newRating,
-                                               @RequestParam String newTitle,@RequestParam String newComment){
-        reviewService.editReview(reviewId,newRating,newTitle,newComment);
+    public ResponseEntity<String> editarReview(@RequestBody EditReviewDTO dto) {
+        reviewService.editReview(dto.reviewId(), dto.newRating(), dto.newTitle(), dto.newComment());
         return ResponseEntity.ok("Review alterada");
     }
 
-    @DeleteMapping()
-    public ResponseEntity<String> removerReview(@RequestParam Long userId,@RequestParam Long bookId,
-                                                @RequestParam Long reviewId){
-        reviewService.removeReview(userId, bookId, reviewId);
+    @DeleteMapping(value = "removerReview/{reviewId}")
+    public ResponseEntity<String>  removerReview(@PathVariable Long reviewId) {
+        reviewService.removerReview(reviewId);
         return ResponseEntity.ok("Review removida");
+
+
     }
 }
