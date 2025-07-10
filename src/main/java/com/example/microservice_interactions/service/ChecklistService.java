@@ -5,6 +5,7 @@ import com.example.microservice_interactions.repository.ChecklistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -14,11 +15,11 @@ public class ChecklistService {
     private ChecklistRepository checklistRepository;
 
 
-    public void addChecklist(Long userId,Long bookId){
-        if(!checklistRepository.existsByUserIdAndBookId(userId, bookId)) {
-            Checklist checklist = new Checklist(userId, bookId);
-            checklistRepository.save(checklist);
-        }
+    public void addChecklist(Long userId, Long bookId) {
+        Checklist checklist = new Checklist();
+        checklist.setUserId(userId);
+        checklist.setBookId(bookId);
+        checklistRepository.save(checklist);
     }
 
     public void editChecklist(Long userId, Long oldBookId, Long newBookId) {
@@ -39,4 +40,9 @@ public class ChecklistService {
                 .ifPresent(checklistRepository::delete);
 
     }
+
+    public List<Checklist> listarChecklist(Long userId) {
+        return checklistRepository.findByUserId(userId);
+    }
+
 }

@@ -1,11 +1,13 @@
 package com.example.microservice_interactions.service;
 
+import com.example.microservice_interactions.entity.Like;
 import com.example.microservice_interactions.entity.Review;
 import com.example.microservice_interactions.repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -38,6 +40,10 @@ public class ReviewService {
         } else {
             throw new RuntimeException("Review não encontrada com id " + reviewId);
         }
+    }
+
+    public List<Review> listarReview(Long userId) {
+        return reviewRepository.findByUserId(userId);
     }
 
 }

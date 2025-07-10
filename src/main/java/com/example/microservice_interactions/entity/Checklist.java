@@ -21,7 +21,8 @@ public class Checklist {
     public Checklist() {}
 
     public Checklist(Long userId, Long bookId) {
-
+        this.userId = userId;
+        this.bookId = bookId;
     }
 
     public Long getId() {
@@ -40,6 +41,12 @@ public class Checklist {
         return createdAt;
     }
 
-    public void setBookId(Long newBookId) {
+    public void setBookId(Long bookId) {
+        this.bookId = bookId;
     }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
 }

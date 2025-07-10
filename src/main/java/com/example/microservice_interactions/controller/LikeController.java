@@ -1,10 +1,14 @@
 package com.example.microservice_interactions.controller;
 
+import com.example.microservice_interactions.entity.Checklist;
+import com.example.microservice_interactions.entity.Like;
 import com.example.microservice_interactions.repository.LikeRepository;
 import com.example.microservice_interactions.service.LikeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/likes")
@@ -26,6 +30,16 @@ public class LikeController {
     public ResponseEntity<String> removerLike(@PathVariable("userId") Long userId, @PathVariable("bookId") Long bookId){
         likeService.removeLike(userId, bookId);
         return ResponseEntity.ok("Removido com sucesso");
+    }
+
+    @GetMapping(value = "/listarLikesUsuario/{userId}")
+    public ResponseEntity<List<Like>> listarLikesPorUsuario(@PathVariable Long userId){
+        List<Like> likes = likeRepository.findByUserId(userId);
+
+        if (likes.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(likes);
     }
 
 }

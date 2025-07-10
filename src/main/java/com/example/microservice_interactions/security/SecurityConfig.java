@@ -27,6 +27,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/h2-console/**").permitAll() // Libera todas as rotas do H2
                         .requestMatchers(HttpMethod.POST, "/interaction/like/{bookId}").hasRole("USER")
+                        .requestMatchers(HttpMethod.GET, "/checklistUsuario/**").hasRole("USER")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

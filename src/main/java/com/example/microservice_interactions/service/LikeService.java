@@ -1,10 +1,12 @@
 package com.example.microservice_interactions.service;
 
+import com.example.microservice_interactions.entity.Checklist;
 import com.example.microservice_interactions.entity.Like;
 import com.example.microservice_interactions.repository.LikeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -24,5 +26,10 @@ public class LikeService {
         likeRepository.findByUserIdAndBookId(userId, bookId)
                 .ifPresent(likeRepository::delete);
     }
+
+    public List<Like> listarLike(Long userId) {
+        return likeRepository.findByUserId(userId);
+    }
+
 
 }

@@ -2,11 +2,15 @@ package com.example.microservice_interactions.controller;
 
 import com.example.microservice_interactions.dto.EditReviewDTO;
 import com.example.microservice_interactions.dto.ReviewRequestDTO;
+import com.example.microservice_interactions.entity.Like;
+import com.example.microservice_interactions.entity.Review;
 import com.example.microservice_interactions.repository.ReviewRepository;
 import com.example.microservice_interactions.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/reviews")
@@ -34,7 +38,15 @@ public class ReviewController {
     public ResponseEntity<String>  removerReview(@PathVariable Long reviewId) {
         reviewService.removerReview(reviewId);
         return ResponseEntity.ok("Review removida");
+    }
 
+    @GetMapping(value = "/listarReviewUsuario/{userId}")
+    public ResponseEntity<List<Review>> listarLikesPorUsuario(@PathVariable Long userId){
+        List<Review> likes = reviewRepository.findByUserId(userId);
 
+        if (likes.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(likes);
     }
 }
