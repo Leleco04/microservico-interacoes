@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/reviews")
+@RequestMapping("/review")
+@CrossOrigin(origins = "http://localhost:4200")
 public class ReviewController {
 
     @Autowired
@@ -22,7 +23,7 @@ public class ReviewController {
     @Autowired
     private ReviewRepository reviewRepository;
 
-    @PostMapping(value = "/adicionarReview")
+    @PostMapping(value = "/add")
     public ResponseEntity<String> adicionarReview(@RequestBody ReviewRequestDTO dto){
         reviewService.addReview(dto.userId(), dto.bookId(), dto.rating(), dto.title(), dto.comment());
         return ResponseEntity.ok("Review adicionada");
@@ -38,6 +39,17 @@ public class ReviewController {
     public ResponseEntity<String>  removerReview(@PathVariable Long reviewId) {
         reviewService.removerReview(reviewId);
         return ResponseEntity.ok("Review removida");
+    }
+
+    @GetMapping(value = "/book/{bookId}")
+    public ResponseEntity<List<Review>> getByBookId(@PathVariable Long bookId){
+        List<Review> reviews = reviewRepository.findByBookId(bookId);
+
+        if (reviews.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+
+        return ResponseEntity.ok(reviews);
     }
 
     @GetMapping(value = "/listarReviewUsuario/{userId}")

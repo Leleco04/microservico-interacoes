@@ -1,5 +1,6 @@
 package com.example.microservice_interactions.entity;
 
+import com.example.microservice_interactions.enums.Status;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -15,6 +16,8 @@ public class Checklist {
     private Long userId;
 
     private Long bookId;
+
+    private Status status;
 
     private LocalDateTime createdAt = LocalDateTime.now();
 
@@ -37,6 +40,10 @@ public class Checklist {
         return bookId;
     }
 
+    public Status getStatus() {
+        return status;
+    }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
@@ -49,4 +56,7 @@ public class Checklist {
         this.userId = userId;
     }
 
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 }

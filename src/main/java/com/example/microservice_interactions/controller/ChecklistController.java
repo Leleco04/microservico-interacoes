@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/checklist")
+@CrossOrigin(origins = "http://localhost:4200")
 public class ChecklistController {
 
     @Autowired

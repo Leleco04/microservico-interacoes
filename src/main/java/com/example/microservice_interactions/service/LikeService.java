@@ -16,9 +16,16 @@ public class LikeService {
     private LikeRepository likeRepository;
 
     public void addLike(Long userId, Long bookId) {
+        // Se o usuário ainda não deu like no livro
         if(!likeRepository.existsByUserIdAndBookId(userId, bookId)) {
+            // Salva o like com o id do usuário e id do livro
             Like like = new Like(userId, bookId);
             likeRepository.save(like);
+        // O usuário já deu like nesse livro
+        } else {
+            // Exclui o like
+            likeRepository.findByUserIdAndBookId(userId, bookId)
+                    .ifPresent(likeRepository::delete);
         }
     }
 
@@ -31,5 +38,8 @@ public class LikeService {
         return likeRepository.findByUserId(userId);
     }
 
+    public boolean existe(Long userId, Long bookId) {
+        return likeRepository.existsByUserIdAndBookId(userId, bookId);
+    }
 
 }
