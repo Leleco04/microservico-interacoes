@@ -1,0 +1,14 @@
+com\example\microservice_interactions\entity\Checklist.class
+com\example\microservice_interactions\entity\Review.class
+com\example\microservice_interactions\enums\Status.class
+com\example\microservice_interactions\repository\ReviewRepository.class
+com\example\microservice_interactions\entity\Like.class
+com\example\microservice_interactions\security\SecurityConfig.class
+com\example\microservice_interactions\security\SecurityFilter.class
+com\example\microservice_interactions\repository\ChecklistRepository.class
+com\example\microservice_interactions\dto\ReviewRequestDTO.class
+com\example\microservice_interactions\MicroserviceInteractionsApplication.class
+com\example\microservice_interactions\service\TokenService.class
+com\example\microservice_interactions\repository\LikeRepository.class
+com\example\microservice_interactions\dto\LikeRequestDTO.class
+com\example\microservice_interactions\dto\ChecklistRequestDTO.class

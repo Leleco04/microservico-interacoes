@@ -10,7 +10,7 @@ public class Review {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY )
-    private Long id;
+    private Long reviewId;
 
     private Long userId;
 
@@ -35,8 +35,9 @@ public class Review {
         this.createdAt = createdAt;
     }
 
-    public Long getId() {
-        return id;
+
+    public Long getReviewId() {
+        return reviewId;
     }
 
     public Long getUserId() {
@@ -61,5 +62,17 @@ public class Review {
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
+    }
+
+    public void setRating(int newRating) {
+        this.rating = newRating;
+    }
+
+    public void setTitle(String newTitle) {
+        this.title = newTitle;
+    }
+
+    public void setComment(String newComment) {
+        this.comment = newComment;
     }
 }

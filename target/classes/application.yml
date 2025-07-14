@@ -1,0 +1,31 @@
+server:
+  port: 8889
+spring:
+  application:
+    name: microservice-interactions
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        globally_quoted_identifiers: true
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  cloud:
+    compatibility:
+      verifier:
+        enabled: false
+api:
+  security:
+    token:
+      secret: ${JWT_SECRET:secret}
+book-service:
+  url: http://localhost:8889

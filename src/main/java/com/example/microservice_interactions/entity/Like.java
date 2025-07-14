@@ -40,4 +40,7 @@ public class Like {
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
+
+    public void setReactionType(String newReactionType) {
+    }
 }
