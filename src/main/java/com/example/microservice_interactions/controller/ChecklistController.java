@@ -7,6 +7,7 @@ import com.example.microservice_interactions.service.ChecklistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.example.microservice_interactions.enums.Status;
 
 import java.util.List;
 
@@ -25,7 +26,8 @@ public class ChecklistController {
     public ResponseEntity<String> adicionarChecklist(@RequestBody ChecklistRequestDTO checklistRequestDTO) {
         checklistService.addChecklist(
                 checklistRequestDTO.userId(),
-                checklistRequestDTO.bookId()
+                checklistRequestDTO.bookId(),
+                checklistRequestDTO.status()
         );
         return ResponseEntity.ok("Adicionado à sua checklist com sucesso");
     }
@@ -36,9 +38,9 @@ public class ChecklistController {
         return ResponseEntity.ok("Removido da checklist com sucesso");
     }
 
-    @GetMapping("/checklistUsuario/{userId}")
-    public ResponseEntity<List<Checklist>> listarChecklistsPorUsuario(@PathVariable Long userId) {
-        List<Checklist> checklists = checklistRepository.findByUserId(userId);
+    @GetMapping("/checklistUsuario/{userId}/{status}")
+    public ResponseEntity<List<Checklist>> listarChecklistsPorUsuario(@PathVariable Long userId, @PathVariable Status status) {
+        List<Checklist> checklists = checklistRepository.findByUserIdAndStatus(userId,status);
 
         if (checklists.isEmpty()) {
             return ResponseEntity.noContent().build();
