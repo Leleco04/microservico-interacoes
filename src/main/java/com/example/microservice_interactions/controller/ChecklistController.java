@@ -51,6 +51,17 @@ public class ChecklistController {
         return ResponseEntity.ok(checklists);
     }
 
+    @GetMapping("/checklistUsuario/{userId}")
+    public ResponseEntity<List<Checklist>> listarChecklistsPorUsuario(@PathVariable Long userId) {
+        List<Checklist> checklists = checklistRepository.findByUserId(userId);
+
+        if (checklists.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+
+        return ResponseEntity.ok(checklists);
+    }
+
     @GetMapping("/{userId}/{bookId}")
     public ResponseEntity<Checklist> getChecklist(@PathVariable Long userId, @PathVariable Long bookId) {
         try {

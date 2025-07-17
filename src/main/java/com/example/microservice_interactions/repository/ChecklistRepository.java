@@ -13,5 +13,7 @@ public interface ChecklistRepository extends JpaRepository<Checklist, Long> {
 
     Optional<Checklist> findByUserIdAndBookId(Long userId, Long bookId);
 
+    List<Checklist> findByUserId (Long userId);
+
     List<Checklist> findByUserIdAndStatus(Long userId, Status status);
 }

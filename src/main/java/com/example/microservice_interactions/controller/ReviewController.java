@@ -36,10 +36,10 @@ public class ReviewController {
         return ResponseEntity.ok("Review alterada");
     }
 
-    @DeleteMapping(value = "removerReview/{reviewId}")
+    @DeleteMapping(value = "/{reviewId}")
     public ResponseEntity<String>  removerReview(@PathVariable Long reviewId) {
         reviewService.removerReview(reviewId);
-        return ResponseEntity.ok("Review removida");
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping(value = "/book/{bookId}")
