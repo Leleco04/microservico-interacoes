@@ -52,9 +52,13 @@ public class ChecklistController {
     }
 
     @GetMapping("/{userId}/{bookId}")
-    public ResponseEntity<Checklist> getChecklist(@PathVariable("userId") Long userId, @PathVariable("bookId") Long bookId) {
-        Checklist checklist = checklistService.getChecklist(userId, bookId);
-        return ResponseEntity.ok(checklist);
+    public ResponseEntity<Checklist> getChecklist(@PathVariable Long userId, @PathVariable Long bookId) {
+        try {
+            Checklist checklist = checklistService.getChecklist(userId, bookId);
+            return ResponseEntity.ok(checklist);
+        } catch (RuntimeException e) {
+            return ResponseEntity.noContent().build();
+        }
     }
 
 }
