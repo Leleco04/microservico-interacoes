@@ -1,9 +1,11 @@
 package com.example.microservice_interactions.service;
 
+import com.example.microservice_interactions.dto.ReviewResponseDTO;
 import com.example.microservice_interactions.entity.Like;
 import com.example.microservice_interactions.entity.Review;
 import com.example.microservice_interactions.repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -16,8 +18,8 @@ public class ReviewService {
     @Autowired
     private ReviewRepository reviewRepository;
 
-    public void addReview(Long userId, Long bookId, int rating, String title, String comment){
-        Review review = new Review(userId, bookId, rating, title, comment, LocalDateTime.now());
+    public void addReview(Long userId, Long bookId, int rating, String title, String comment, String username){
+        Review review = new Review(userId, bookId, rating, title, comment, username, LocalDateTime.now());
         reviewRepository.save(review);
     }
 
@@ -44,6 +46,22 @@ public class ReviewService {
 
     public List<Review> listarReview(Long userId) {
         return reviewRepository.findByUserId(userId);
+    }
+
+    public ReviewResponseDTO getReviewsAndStatsByBookId(Long bookId) {
+        // Pega a lista de reviews
+        List<Review> reviews = reviewRepository.findByBookId(bookId);
+
+        // Faz a contagem de reviews por livro
+        long totalCount = reviewRepository.countByBookId(bookId);
+
+        // Busca a média de avaliações dos usuários
+        Double averageRating = reviewRepository.findAverageRatingByBookId(bookId);
+        // Caso a busca por média retorne null, a média vira 0
+        double finalAverage = (averageRating == null) ? 0.0 : averageRating;
+
+        // Monta e retorna o DTO de resposta
+        return new ReviewResponseDTO(reviews, totalCount, finalAverage);
     }
 
 }
