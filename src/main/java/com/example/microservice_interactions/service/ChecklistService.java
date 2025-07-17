@@ -18,27 +18,35 @@ public class ChecklistService {
 
     public void addChecklist(Long userId, Long bookId, String statusStr) {
         try {
-            Status status = Status.valueOf(statusStr.toUpperCase()); // converte a String para o enum
-            Checklist checklist = new Checklist();
-            checklist.setUserId(userId);
-            checklist.setBookId(bookId);
-            checklist.setStatus(status);
-            checklistRepository.save(checklist);
+            Status status = Status.valueOf(statusStr.toUpperCase());
+            if (checklistRepository.existsByUserIdAndBookId(userId, bookId)) {
+                Checklist checklistAtual = getChecklist(userId, bookId);
+
+                if (checklistAtual.getStatus() != status) {
+                    editChecklist(userId, bookId, status);
+                }
+            } else {
+                Checklist checklist = new Checklist();
+                checklist.setUserId(userId);
+                checklist.setBookId(bookId);
+                checklist.setStatus(status);
+                checklistRepository.save(checklist);
+            }
         } catch (IllegalArgumentException e) {
             throw new RuntimeException("Status inválido. Use: READ ou WANT_TO_READ");
         }
     }
 
-    public void editChecklist(Long userId, Long oldBookId, Long newBookId, Status newStatus) {
-        Optional<Checklist> optionalChecklist = checklistRepository.findByUserIdAndBookId(userId, oldBookId);
+    public void editChecklist(Long userId, Long bookId, Status newStatus) {
+        Checklist checklistAtual = getChecklist(userId, bookId);
 
-        if (optionalChecklist.isPresent()) {
-            Checklist checklist = optionalChecklist.get();
-            checklist.setBookId(newBookId);
-            checklist.setStatus(newStatus);
-            checklistRepository.save(checklist);
-        } else {
-            throw new RuntimeException("Checklist não encontrada para userId " + userId + " e bookId " + oldBookId);
+        try {
+            if (checklistRepository.existsByUserIdAndBookId(userId, bookId)) {
+                checklistAtual.setStatus(newStatus);
+                checklistRepository.save(checklistAtual);
+            }
+        } catch (RuntimeException e) {
+            throw new RuntimeException("Checklist não encontrada.");
         }
     }
 
