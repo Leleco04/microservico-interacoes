@@ -22,16 +22,19 @@ public class Review {
 
     private String comment;
 
+    private String username;
+
     private LocalDateTime createdAt;
 
     public Review() {}
 
-    public Review(Long userId, Long bookId, int rating, String title, String comment, LocalDateTime createdAt) {
+    public Review(Long userId, Long bookId, int rating, String title, String comment, String username, LocalDateTime createdAt) {
         this.userId = userId;
         this.bookId = bookId;
         this.rating = rating;
         this.title = title;
         this.comment = comment;
+        this.username = username;
         this.createdAt = createdAt;
     }
 
@@ -59,6 +62,8 @@ public class Review {
     public String getComment() {
         return comment;
     }
+
+    public String getUsername() { return username;}
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
