@@ -30,6 +30,7 @@ public class SecurityConfig {
                         .requestMatchers("/h2-console/**").permitAll() // Libera todas as rotas do H2
                         .requestMatchers("/review/book/{bookId}").permitAll()
                         .requestMatchers(HttpMethod.POST, "/review/add").hasRole("USER")
+                        .requestMatchers(HttpMethod.GET, "/checklist/checklistUsuario/{userId}/{status}").hasRole("USER")
                         .requestMatchers(HttpMethod.GET, "/review/user/{userId}").hasRole("USER")
                         .requestMatchers(HttpMethod.GET, "/like/{userId}").hasRole("USER")
                         .requestMatchers(HttpMethod.GET,  "/like/existe/{userId}/{bookId}").hasRole("USER")
