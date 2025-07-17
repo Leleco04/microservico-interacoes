@@ -2,6 +2,7 @@ package com.example.microservice_interactions.controller;
 
 import com.example.microservice_interactions.dto.EditReviewDTO;
 import com.example.microservice_interactions.dto.ReviewRequestDTO;
+import com.example.microservice_interactions.dto.ReviewResponseDTO;
 import com.example.microservice_interactions.entity.Like;
 import com.example.microservice_interactions.entity.Review;
 import com.example.microservice_interactions.repository.ReviewRepository;
@@ -24,9 +25,9 @@ public class ReviewController {
     private ReviewRepository reviewRepository;
 
     @PostMapping(value = "/add")
-    public ResponseEntity<String> adicionarReview(@RequestBody ReviewRequestDTO dto){
-        reviewService.addReview(dto.userId(), dto.bookId(), dto.rating(), dto.title(), dto.comment());
-        return ResponseEntity.ok("Review adicionada");
+    public ResponseEntity<ReviewRequestDTO> adicionarReview(@RequestBody ReviewRequestDTO dto){
+        reviewService.addReview(dto.userId(), dto.bookId(), dto.rating(), dto.title(), dto.comment(), dto.username());
+        return ResponseEntity.ok().body(dto);
     }
 
     @PutMapping(value = "/editarReview")
@@ -42,23 +43,20 @@ public class ReviewController {
     }
 
     @GetMapping(value = "/book/{bookId}")
-    public ResponseEntity<List<Review>> getByBookId(@PathVariable Long bookId){
-        List<Review> reviews = reviewRepository.findByBookId(bookId);
+    public ResponseEntity<ReviewResponseDTO> getByBookId(@PathVariable Long bookId){
+        ReviewResponseDTO response = reviewService.getReviewsAndStatsByBookId(bookId);
 
-        if (reviews.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        }
-
-        return ResponseEntity.ok(reviews);
+        return ResponseEntity.ok(response);
     }
 
-    @GetMapping(value = "/listarReviewUsuario/{userId}")
+    @GetMapping(value = "/user/{userId}")
     public ResponseEntity<List<Review>> listarLikesPorUsuario(@PathVariable Long userId){
         List<Review> likes = reviewRepository.findByUserId(userId);
 
         if (likes.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
-        return ResponseEntity.ok(likes);
+
+        return ResponseEntity.ok().body(likes);
     }
 }
