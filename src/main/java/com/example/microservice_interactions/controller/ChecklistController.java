@@ -51,10 +51,4 @@ public class ChecklistController {
         return ResponseEntity.ok(checklists);
     }
 
-    @GetMapping("/{userId}/{bookId}")
-    public ResponseEntity<Checklist> getChecklist(@PathVariable("userId") Long userId, @PathVariable("bookId") Long bookId) {
-        Checklist checklist = checklistService.getChecklist(userId, bookId);
-        return ResponseEntity.ok(checklist);
-    }
-
 }
