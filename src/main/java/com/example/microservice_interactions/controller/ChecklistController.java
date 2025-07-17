@@ -6,6 +6,7 @@ import com.example.microservice_interactions.repository.ChecklistRepository;
 import com.example.microservice_interactions.service.ChecklistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import com.example.microservice_interactions.enums.Status;
 
@@ -23,13 +24,14 @@ public class ChecklistController {
     private ChecklistRepository checklistRepository;
 
     @PostMapping(value = "/adicionarChecklist")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<String> adicionarChecklist(@RequestBody ChecklistRequestDTO checklistRequestDTO) {
         checklistService.addChecklist(
                 checklistRequestDTO.userId(),
                 checklistRequestDTO.bookId(),
                 checklistRequestDTO.status()
         );
-        return ResponseEntity.ok("Adicionado à sua checklist com sucesso");
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping(value = "/removerChecklist")
