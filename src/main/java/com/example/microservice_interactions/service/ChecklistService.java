@@ -51,9 +51,8 @@ public class ChecklistService {
     }
 
     public Checklist getChecklist(Long userId, Long bookId) {
-        Checklist checklist = checklistRepository.findByUserIdAndBookId(userId, bookId).
+        return checklistRepository.findByUserIdAndBookId(userId, bookId).
                 orElseThrow(() -> new RuntimeException("Livro não encontrado."));
-        return checklist;
     }
 
     public void removeChecklist(Long userId, Long bookId){
