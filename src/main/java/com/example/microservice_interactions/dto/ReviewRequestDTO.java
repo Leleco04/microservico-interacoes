@@ -8,7 +8,9 @@ public record ReviewRequestDTO(
         int rating,
         String title,
         String comment,
-        LocalDateTime createdAt)
+        String username,
+        LocalDateTime createdAt
+)
 {
 
 }
