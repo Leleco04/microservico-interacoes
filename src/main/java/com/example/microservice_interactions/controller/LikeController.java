@@ -45,11 +45,11 @@ public class LikeController {
     }
 
     @GetMapping(value = "/existe/{userId}/{bookId}")
-    public ResponseEntity<String> verificarExiste(@PathVariable Long userId, @PathVariable("bookId") Long bookId){
+    public ResponseEntity<Boolean> verificarExiste(@PathVariable Long userId, @PathVariable("bookId") Long bookId){
         if(likeService.existe(userId, bookId)) {
-            return ResponseEntity.ok("Like encontrado!");
+            return ResponseEntity.ok(true);
         }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(false);
     }
 
 }
