@@ -20,6 +20,7 @@ public class Review {
 
     private String title;
 
+    @Lob
     private String comment;
 
     private String username;
