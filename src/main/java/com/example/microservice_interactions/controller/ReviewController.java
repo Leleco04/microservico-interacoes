@@ -52,13 +52,13 @@ public class ReviewController {
     }
 
     @GetMapping(value = "/user/{userId}")
-    public ResponseEntity<List<Review>> listarLikesPorUsuario(@PathVariable Long userId){
-        List<Review> likes = reviewRepository.findByUserId(userId);
+    public ResponseEntity<List<ReviewBookResponseDTO>> listarReviews(@PathVariable Long userId){
+        List<ReviewBookResponseDTO> reviews = reviewService.findReviewsByUserId(userId);
 
-        if (likes.isEmpty()) {
+        if (reviews.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
 
-        return ResponseEntity.ok().body(likes);
+        return ResponseEntity.ok().body(reviews);
     }
 }
