@@ -2,6 +2,8 @@ package com.example.microservice_interactions.service;
 
 import com.example.microservice_interactions.client.BookClient;
 import com.example.microservice_interactions.client.UserClient;
+import com.example.microservice_interactions.dto.BookDTO;
+import com.example.microservice_interactions.dto.ReviewBookResponseDTO;
 import com.example.microservice_interactions.dto.ReviewResponseDTO;
 import com.example.microservice_interactions.entity.Like;
 import com.example.microservice_interactions.entity.Review;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ReviewService {
@@ -55,6 +58,32 @@ public class ReviewService {
         } else {
             throw new RuntimeException("Review não encontrada com id " + reviewId);
         }
+    }
+
+    // No seu ReviewService.java
+    public List<ReviewBookResponseDTO> findReviewsByUserId(Long userId) {
+        // 1. Busca as reviews básicas do seu banco de dados
+        List<Review> reviews = reviewRepository.findByUserId(userId);
+
+        // 2. Mapeia cada review para o DTO de resposta completo
+        return reviews.stream()
+                .map(review -> {
+                    // 3. Para cada review, chama o BookService via Feign para buscar os detalhes do livro
+                    BookDTO bookDetails = bookClient.findBookById(review.getBookId());
+
+                    // 4. Monta o DTO de resposta combinado e o retorna
+                    return new ReviewBookResponseDTO(
+                            review.getUserId(),
+                            review.getBookId(),
+                            review.getRating(),
+                            review.getTitle(),
+                            review.getComment(),
+                            review.getUsername(),
+                            bookDetails,
+                            review.getCreatedAt()
+                    );
+                })
+                .collect(Collectors.toList());
     }
 
     public List<Review> listarReview(Long userId) {
