@@ -1,5 +1,7 @@
 package com.example.microservice_interactions.service;
 
+import com.example.microservice_interactions.client.BookClient;
+import com.example.microservice_interactions.client.UserClient;
 import com.example.microservice_interactions.dto.ReviewResponseDTO;
 import com.example.microservice_interactions.entity.Like;
 import com.example.microservice_interactions.entity.Review;
@@ -18,7 +20,18 @@ public class ReviewService {
     @Autowired
     private ReviewRepository reviewRepository;
 
+    private final UserClient userClient;
+    private final BookClient bookClient;
+
+    public ReviewService(UserClient userClient, BookClient bookClient) {
+        this.userClient = userClient;
+        this.bookClient = bookClient;
+    }
+
     public void addReview(Long userId, Long bookId, int rating, String title, String comment, String username){
+        userClient.findUserById(userId);
+        bookClient.findBookById(bookId);
+
         Review review = new Review(userId, bookId, rating, title, comment, username, LocalDateTime.now());
         reviewRepository.save(review);
     }

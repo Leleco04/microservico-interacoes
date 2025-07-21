@@ -1,8 +1,8 @@
 package com.example.microservice_interactions.controller;
 
-import com.example.microservice_interactions.dto.EditReviewDTO;
-import com.example.microservice_interactions.dto.ReviewRequestDTO;
-import com.example.microservice_interactions.dto.ReviewResponseDTO;
+import com.example.microservice_interactions.client.BookClient;
+import com.example.microservice_interactions.client.UserClient;
+import com.example.microservice_interactions.dto.*;
 import com.example.microservice_interactions.entity.Like;
 import com.example.microservice_interactions.entity.Review;
 import com.example.microservice_interactions.repository.ReviewRepository;
@@ -10,6 +10,8 @@ import com.example.microservice_interactions.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
