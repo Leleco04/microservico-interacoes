@@ -29,7 +29,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/h2-console/**").permitAll() // Libera todas as rotas do H2
                         .requestMatchers("/review/book/{bookId}").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/review/add").hasRole("USER")
+                        .requestMatchers(HttpMethod.POST, "/review/add").authenticated()
                         .requestMatchers(HttpMethod.GET, "/checklist/checklistUsuario/{userId}/{status}").hasRole("USER")
                         .requestMatchers(HttpMethod.GET, "/checklist/checklistUsuario/{userId}").hasRole("USER")
                         .requestMatchers(HttpMethod.GET, "/review/user/{userId}").hasRole("USER")
