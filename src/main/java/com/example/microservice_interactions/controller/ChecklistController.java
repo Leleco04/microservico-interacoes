@@ -34,15 +34,15 @@ public class ChecklistController {
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping(value = "/removerChecklist")
-    public ResponseEntity<String> removerChecklist(@RequestBody ChecklistRequestDTO checklistRequestDTO) {
-        checklistService.removeChecklist(checklistRequestDTO.userId(), checklistRequestDTO.bookId());
+    @DeleteMapping(value = "/removerChecklist/{userId}/{bookId}")
+    public ResponseEntity<String> removerChecklist(@PathVariable Long userId, @PathVariable Long bookId) {
+        checklistService.removeChecklist(userId, bookId);
         return ResponseEntity.ok("Removido da checklist com sucesso");
     }
 
     @GetMapping("/checklistUsuario/{userId}/{status}")
     public ResponseEntity<List<Checklist>> listarChecklistsPorUsuario(@PathVariable Long userId, @PathVariable Status status) {
-        List<Checklist> checklists = checklistRepository.findByUserIdAndStatus(userId,status);
+        List<Checklist> checklists = checklistService.listarChecklist(userId,status);
 
         if (checklists.isEmpty()) {
             return ResponseEntity.noContent().build();
