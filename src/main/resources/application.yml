@@ -29,3 +29,5 @@ api:
       secret: ${JWT_SECRET:secret}
 book-service:
   url: http://localhost:8889
+user-service:
+  url: http://localhost:8888
