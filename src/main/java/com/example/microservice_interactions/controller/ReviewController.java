@@ -45,8 +45,12 @@ public class ReviewController {
     }
 
     @GetMapping(value = "/book/{bookId}")
-    public ResponseEntity<ReviewResponseDTO> getByBookId(@PathVariable Long bookId){
-        ReviewResponseDTO response = reviewService.getReviewsAndStatsByBookId(bookId);
+    public ResponseEntity<ReviewResponseDTO> getByBookId(
+            @PathVariable Long bookId,
+            @RequestParam(required = false) Integer page,
+            @RequestParam(required = false) Integer size
+    ){
+        ReviewResponseDTO response = reviewService.getReviewsAndStatsByBookId(bookId, page, size);
 
         return ResponseEntity.ok(response);
     }

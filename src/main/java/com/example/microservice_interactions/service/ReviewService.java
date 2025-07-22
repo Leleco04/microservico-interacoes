@@ -9,6 +9,10 @@ import com.example.microservice_interactions.entity.Like;
 import com.example.microservice_interactions.entity.Review;
 import com.example.microservice_interactions.repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -90,9 +94,21 @@ public class ReviewService {
         return reviewRepository.findByUserId(userId);
     }
 
-    public ReviewResponseDTO getReviewsAndStatsByBookId(Long bookId) {
-        // Pega a lista de reviews
-        List<Review> reviews = reviewRepository.findByBookId(bookId);
+    public ReviewResponseDTO getReviewsAndStatsByBookId(Long bookId, Integer page, Integer size) {
+
+        Pageable pageable;
+
+        if (page != null && size != null) {
+            // Se sim, cria a paginação como antes
+            // Subtraímos 1 da página, pois o frontend usa base 1 e o Spring usa base 0.
+            pageable = PageRequest.of(page - 1, size, Sort.by("createdAt").descending());
+        } else {
+            // Se não, usa Pageable.unpaged() para retornar todos os resultados
+            pageable = Pageable.unpaged();
+        }
+
+        Page<Review> reviewPage = reviewRepository.findByBookId(bookId, pageable);
+        List<Review> reviews = reviewPage.getContent();
 
         // Faz a contagem de reviews por livro
         long totalCount = reviewRepository.countByBookId(bookId);
