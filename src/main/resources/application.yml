@@ -28,6 +28,6 @@ api:
     token:
       secret: ${JWT_SECRET:secret}
 book-service:
-  url: http://localhost:8889
+  url: http://localhost:8887
 user-service:
   url: http://localhost:8888
