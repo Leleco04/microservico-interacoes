@@ -35,9 +35,9 @@ public class ChecklistController {
     }
 
     @DeleteMapping(value = "/removerChecklist/{userId}/{bookId}")
-    public ResponseEntity<String> removerChecklist(@PathVariable Long userId, @PathVariable Long bookId) {
+    public ResponseEntity<?> removerChecklist(@PathVariable Long userId, @PathVariable Long bookId) {
         checklistService.removeChecklist(userId, bookId);
-        return ResponseEntity.ok("Removido da checklist com sucesso");
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/checklistUsuario/{userId}/{status}")
